@@ -1,4 +1,5 @@
 using api.Data;
+using api.Dtos;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +15,21 @@ namespace api.Repositories
             _context = context;
         }
 
-        public Task<List<Employee>> GetAllAsync()
+        public Task<List<EmployeeDto>> GetAllAsync()
         {
-            return _context.Employees.ToListAsync();
+            // Created a possible dependency cycle. when only including .Include()
+            // Employee Depends on Dept. Dept depends on Employee
+            // fix create a dto
+            // after include use .Select() to map to Dto
+            return _context.Employees.Include(e => e.Department).Select(e => new EmployeeDto
+                {
+                    Id = e.Id,
+                    FirstName = e.FirstName,
+                    LastName = e.LastName,
+                    StartDate = e.StartDate,
+                    EndDate = e.EndDate,
+                    DepartmentName = e.Department.Name
+                }).ToListAsync();
         }
         
     }

@@ -14,7 +14,19 @@ namespace api.Mappers
                 LastName = employeeModel.LastName,
                 StartDate = employeeModel.StartDate,
                 EndDate = employeeModel.EndDate,
-                DepartmentId = employeeModel.Department.Id
+                DepartmentId = employeeModel.DepartmentId
+            };
+        }
+
+        public static Employee ToEmployeeFromCreate(this CreateEmployeeRequestDto employeeRequestDto)
+        {
+            return new Employee
+            {
+                FirstName = employeeRequestDto.FirstName,
+                LastName = employeeRequestDto.LastName,
+                StartDate = employeeRequestDto.StartDate,
+                EndDate = null,
+                DepartmentId = employeeRequestDto.DepartmentId
             };
         }
     }

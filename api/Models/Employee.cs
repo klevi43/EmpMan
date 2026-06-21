@@ -7,8 +7,9 @@ namespace api.Models
         public string LastName { get; set; } = string.Empty;
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime? EndDate { get; set; }
+        public int DepartmentId { get; set; }
         // Navigation property
         // allows you to cleanly access the parent entity Dept.Name
-        public required Department Department { get; set; }
+        public Department? Department { get; set; }
     }
 }

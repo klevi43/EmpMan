@@ -35,7 +35,13 @@ namespace api.Controllers
             }
             return Ok(employeeModel.ToEmployeeDto());
         }
-
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateEmployeeRequestDto employeeRequestDto)
+        {
+            var employeeModel = employeeRequestDto.ToEmployeeFromCreate();
+            await _employeeRepository.SaveAsync(employeeModel);
+            return CreatedAtAction(nameof(GetById), new { id = employeeModel.Id }, employeeModel.ToEmployeeDto());
+        }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteById(int id)
         {

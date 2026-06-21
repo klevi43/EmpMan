@@ -18,7 +18,7 @@ namespace api.Repositories
 
         public async Task<Employee?> DeleteById(int id)
         {
-             var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Id == id);
+            var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Id == id);
             if (employee == null)
             {
                 return null;
@@ -43,9 +43,11 @@ namespace api.Repositories
 
         }
 
-        public  async Task<Employee> SaveAsync(Employee entity)
+        public  async Task<Employee> SaveAsync(Employee employee)
         {
-            throw new NotImplementedException();
+            await _context.AddAsync(employee);
+            await _context.SaveChangesAsync();
+            return employee;
         }
 
         public async Task<Employee?> UpdateAsync(int id, Employee entity)

@@ -17,7 +17,16 @@ namespace api.Mappers
             };
         }
 
-        public static Department ToDepartment(this CreateDepartmentRequestDto departmentRequestDto)
+        public static Department ToDepartmentFromCreate(this CreateDepartmentRequestDto departmentRequestDto)
+        {
+            return new Department
+            {
+                Name = departmentRequestDto.Name
+            };
+        }
+
+        
+        public static Department ToDepartmentFromUpdate(this UpdateDepartmentRequestDto departmentRequestDto)
         {
             return new Department
             {

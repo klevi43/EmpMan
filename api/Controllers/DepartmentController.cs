@@ -2,6 +2,7 @@ using api.Dtos;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 
 namespace api.Controllers
 {
@@ -36,10 +37,35 @@ namespace api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateDepartmentRequestDto departmentDto)
         {   
-            var departmentModel = departmentDto.ToDepartment();
+            var departmentModel = departmentDto.ToDepartmentFromCreate();
             await _departmentRepository.SaveAsync(departmentModel);
             
             return CreatedAtAction(nameof(GetById), new { id = departmentModel.Id }, departmentModel.ToDepartmentDto());
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateDepartmentRequestDto updateDepartmentRequestDto)
+        {
+            var departmentModel = updateDepartmentRequestDto.ToDepartmentFromUpdate();
+            var updatedDepartment = await _departmentRepository.UpdateAsync(id, departmentModel);
+            if (updatedDepartment == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedDepartment.ToDepartmentDto());
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteById(int id)
+        {
+            
+            var departmentModel = await _departmentRepository.DeleteById(id);
+            if (departmentModel == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }
 }

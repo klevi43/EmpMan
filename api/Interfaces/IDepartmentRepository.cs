@@ -1,3 +1,4 @@
+using api.Dtos;
 using api.Models;
 
 namespace api.Interfaces
@@ -9,7 +10,7 @@ namespace api.Interfaces
 
         public Task<Department> SaveAsync(Department department);
 
-        public Task<Department?> UpdateAsync(Department department);
-        public void DeleteById(int id);
+        public Task<Department?> UpdateAsync(int id, Department department);
+        public Task<Department?> DeleteById(int id);
     }
 }

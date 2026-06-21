@@ -1,4 +1,5 @@
 using api.Data;
+using api.Dtos;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,17 @@ namespace api.Repositories
             _context = context;
         }
 
-        public void DeleteById(int id)
+        public async Task<Department?> DeleteById(int id)
         {
-            throw new NotImplementedException();
+            
+            var department = await _context.Departments.FirstOrDefaultAsync(d => d.Id == id);
+            if (department == null)
+            {
+                return null;
+            }
+            _context.Remove(department);
+            await _context.SaveChangesAsync();
+            return department;
         }
 
         // Task a unit of work that will produce a value in the future
@@ -38,9 +47,18 @@ namespace api.Repositories
             return department;
         }
 
-        public Task<Department?> UpdateAsync(Department department)
+        public async Task<Department?> UpdateAsync(int id, Department updatedDepartment) 
         {
-            throw new NotImplementedException();
+            var existingDepartment = await _context.Departments.FirstOrDefaultAsync(d => d.Id == id);
+            if (existingDepartment == null)
+            {
+                return null;
+            }
+
+            existingDepartment.Name = updatedDepartment.Name;
+            await _context.SaveChangesAsync();
+
+            return existingDepartment;
         }
     }
 }

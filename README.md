@@ -1,58 +1,241 @@
-### Employee Management System
+# Employee Management System
 
-# Project Description
+### Project Description
 
 This is a RestAPI made to perform CRUD operations on two entities: Employees and the Departments they work for.
 
-# Technologies Used
+### Technologies Used
 
 - C#
 - ASP.NET
 - EntityFramework Core
 - MS SQL Server
 
-# Endpoints
+## Endpoints
 
 ## Employees
 
-# GetAll
+### GET /api/employees
 
-- Gets all employees from the database
+Get all employees
+**Response** 200 Ok
 
-# GetById
+```json
+[
+    {
+        "id": number,
+        "firstName": "string",
+        "lastName": "string",
+        "startDate": "yyyy-mm-dd",
+        "endDate": "yyyy-mm-dd",
+        "departmentId": number
+    },
+    ...
+]
+```
 
-- Gets a single employee from the database
+### GET /api/employees/{id}
 
-# Create
+Gets a single employee from the database
 
-- Add a new employee
+**Response** 200 Ok
 
-# UpdateById
+```json
+{
+    "id": number,
+    "firstName": "string",
+    "lastName": "string",
+    "startDate": "yyyy-mm-dd",
+    "endDate": "yyyy-mm-dd",
+    "departmentId": number
+}
+```
 
-- Update an existing employee's information
+### POST /api/employees
 
-# DeleteById
+Add a new employee
+**Request Body**
 
-- Delete an existing employee
+```json
+{
+    "id": number,
+    "firstName": "string",
+    "lastName": "string",
+    "startDate": "yyyy-mm-dd",
+    "departmentId": number
+}
+```
+
+**Response** 201 Created
+
+```json
+{
+    "id": number,
+    "firstName": "string",
+    "lastName": "string",
+    "startDate": "yyyy-mm-dd",
+    "endDate": "yyyy-mm-dd",
+    "departmentId": number
+}
+```
+
+### PUT /api/employees/{id}
+
+Update an existing employee's information
+**Request Body**
+
+```json
+{
+    "firstName": "string",
+    "lastName": "string",
+    "startDate": "yyyy-mm-dd",
+    "endDate": "yyyy-mm-dd",
+    "departmentId": number
+}
+```
+
+**Response** 200 Ok
+
+```json
+{
+    "id": number,
+    "firstName": "string",
+    "lastName": "string",
+    "startDate": "yyyy-mm-dd",
+    "endDate": "yyyy-mm-dd",
+    "departmentId": number
+}
+```
+
+### DELETE /api/employees/{id}
+
+Delete an existing employee
+**Response** 204 No Content
 
 ## Departments
 
-# GetAll
+### GET /api/departments
 
-- Gets all departments from the database
+Gets all departments from the database
+**Response** 200 Ok
 
-# GetById
+```json
+[
+    {
+        "id": number,
+        "name": "string",
+        "employees": [
+            {
+                "id": number,
+                "firstName": "string",
+                "lastName": "string",
+                "startDate": "yyyy-mm-dd",
+                "endDate": "yyyy-mm-dd",
+                "departmentId": number
+            },
+            ...
+        ]
+    },
+    ...
+]
+```
 
-- Gets a single departments from the database
+### GET /api/departments/{id}
 
-# Create
+Gets a single department from the database
 
-- Add a new departments
+**Response** 200 Ok
 
-# UpdateById
+```json
+[
+    {
+        "id": number,
+        "name": "string",
+        "employees": [
+            {
+                "id": number,
+                "firstName": "string",
+                "lastName": "string",
+                "startDate": "yyyy-mm-dd",
+                "endDate": "yyyy-mm-dd",
+                "departmentId": number
+            },
+            ...
+        ]
+    }
+]
+```
 
-- Update an existing department's information
+### POST /api/departments
 
-# DeleteById
+Add a new departments
+**Request Body**
 
-- Delete an existing department
+```json
+
+{
+    "id": number,
+    "name": "string",
+}
+```
+
+**Response** 201 Created
+
+```json
+[
+    {
+        "id": number,
+        "name": "string",
+        "employees": [
+            {
+                "id": number,
+                "firstName": "string",
+                "lastName": "string",
+                "startDate": "yyyy-mm-dd",
+                "endDate": "yyyy-mm-dd",
+                "departmentId": number
+            },
+            ...
+        ]
+    }
+]
+```
+
+### PUT /api/departments/{id}
+
+Update an existing department's information
+**Request Body**
+
+```json
+
+{
+    "id": number,
+    "name": "string",
+}
+```
+
+**Response** 200 Ok
+
+```json
+{
+    "id": number,
+    "name": "string",
+    "employees": [
+        {
+            "id": number,
+            "firstName": "string",
+            "lastName": "string",
+            "startDate": "yyyy-mm-dd",
+            "endDate": "yyyy-mm-dd",
+            "departmentId": number
+        },
+        ...
+    ]
+}
+```
+
+### DELETE /api/departments/id
+
+Delete an existing department
+
+**Response** 204 No Content

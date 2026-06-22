@@ -11,7 +11,7 @@ This is a RestAPI made to perform CRUD operations on two entities: Employees and
 - EntityFramework Core
 - MS SQL Server
 
-## Endpoints
+# Endpoints
 
 ## Employees
 
